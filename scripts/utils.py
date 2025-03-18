@@ -36,7 +36,9 @@ def load_data_from_drive(service, file_id):
             status, done = downloader.next_chunk()
 
         file_content.seek(0)
-        return pd.read_csv(file_content)
+        df = pd.read_csv(file_content)
+        print("✅ Data loaded successfully!")
+        return df
 
     except Exception as e:
         print(f"❌ Error loading data: {e}")
