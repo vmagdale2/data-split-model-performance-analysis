@@ -36,7 +36,13 @@ def load_data_from_drive(service, file_id):
             status, done = downloader.next_chunk()
 
         file_content.seek(0)
-        df = pd.read_csv(file_content)
+
+        # Fix: Correct CSV decoding
+        decoded_content = file_content.read().decode('utf-8')
+
+        # Fix: Load data as DataFrame directly from string buffer
+        df = pd.read_csv(io.StringIO(decoded_content))
+
         print("✅ Data loaded successfully!")
         return df
 
