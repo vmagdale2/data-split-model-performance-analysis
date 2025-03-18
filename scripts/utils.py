@@ -43,7 +43,7 @@ def load_data_from_drive(service, file_id):
         return None
 
 # Load Data file from Google Drive
-def load_data_from_drive(service, data_file_id):
+def load_file_data_from_drive(service, data_file_id):
     try:
         request = service.files().get_media(fileId=data_file_id)
         file_content = io.BytesIO()
