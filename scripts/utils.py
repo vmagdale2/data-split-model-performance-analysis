@@ -53,7 +53,6 @@ def load_data_from_drive(service, file_id):
 # Function to handle missing values
 import warnings
 def handle_missing_values(df, method='median'):
-    """Fill missing values using specified method for numeric columns only."""
     numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
 
     # Identify and convert any non-numeric data in numeric columns
@@ -79,18 +78,15 @@ def handle_missing_values(df, method='median'):
 
 # Function to perform one-hot encoding
 def one_hot_encode(df, drop_first=True):
-    """Perform one-hot encoding for categorical features."""
     categorical_cols = df.select_dtypes(include=['object']).columns
     return pd.get_dummies(df, columns=categorical_cols, drop_first=drop_first)
 
 # Function to create train/test split
 def create_train_test_splits(X, y, test_size=0.3, random_state=42):
-    """Split data into train and test sets."""
     return train_test_split(X, y, test_size=test_size, random_state=random_state)
 
 # Function to scale data
 def scale_data(df, columns, scaler_type='StandardScaler'):
-    """Apply chosen scaler to selected columns."""
     scaler = StandardScaler() if scaler_type == 'StandardScaler' else MinMaxScaler()
     df_scaled = df.copy()
     df_scaled[columns] = scaler.fit_transform(df[columns])
@@ -98,12 +94,10 @@ def scale_data(df, columns, scaler_type='StandardScaler'):
 
 # Function to calculate mean squared error
 def calculate_mse(y_true, y_pred):
-    """Calculate Mean Squared Error."""
     return mean_squared_error(y_true, y_pred)
 
 # Function to visualize predictions vs actual values
 def plot_predictions(y_true, y_pred):
-    """Plot predicted values against actual values."""
     plt.figure(figsize=(10, 6))
     plt.scatter(y_true, y_pred, alpha=0.3)
     plt.plot([min(y_true), max(y_true)], [min(y_true), max(y_true)], color='red', linestyle='--')
