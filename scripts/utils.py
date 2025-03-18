@@ -53,17 +53,19 @@ def load_data_from_drive(service, file_id):
 # Function to handle missing values
 def handle_missing_values(df, method='median'):
     """Fill missing values using specified method for numeric columns only."""
+    numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
+    non_numeric_cols = df.select_dtypes(exclude=['float64', 'int64']).columns
+
     if method == 'median':
-        for col in df.select_dtypes(include=['number']).columns:
-            df[col].fillna(df[col].median(), inplace=True)
+        df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].median())
     elif method == 'mean':
-        for col in df.select_dtypes(include=['number']).columns:
-            df[col].fillna(df[col].mean(), inplace=True)
+        df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].mean())
     elif method == 'mode':
-        for col in df.columns:  # Mode works for both numeric and non-numeric data
+        for col in df.columns:  # Mode works for all data types
             df[col].fillna(df[col].mode().iloc[0], inplace=True)
     else:
         raise ValueError("Invalid method. Choose 'median', 'mean', or 'mode'.")
+
     return df
 
 # Function to perform one-hot encoding
