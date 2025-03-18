@@ -18,7 +18,7 @@ from google.auth import default
 # Authenticate and Load .env Variables
 def authenticate_and_load_env():
     auth.authenticate_user()
-    load_dotenv("/content/drive/MyDrive/Professional/Portfolio/test_split/.env")
+    load_dotenv("/content/drive/MyDrive/Professional/Portfolio/test_split/.env_drive")
     creds, _ = default()
     service = build('drive', 'v3', credentials=creds)
     print("✅ Google Drive API authenticated successfully!")
