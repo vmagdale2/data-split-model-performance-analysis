@@ -42,6 +42,24 @@ def load_data_from_drive(service, file_id):
         print(f"❌ Error loading data: {e}")
         return None
 
+# Load Data file from Google Drive
+def load_data_from_drive(service, data_file_id):
+    try:
+        request = service.files().get_media(fileId=data_file_id)
+        file_content = io.BytesIO()
+        downloader = MediaIoBaseDownload(file_content, request)
+
+        done = False
+        while not done:
+            status, done = downloader.next_chunk()
+
+        file_content.seek(0)
+        return pd.read_csv(file_content)
+
+    except Exception as e:
+        print(f"❌ Error loading data: {e}")
+        return None
+
 # Function to handle missing values
 def handle_missing_values(df, method='median'):
     """Fill missing values using specified method."""
