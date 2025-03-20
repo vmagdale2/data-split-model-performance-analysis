@@ -68,4 +68,3 @@ evaluate_model('Best Ridge Regression', df_y_test, y_pred_best_ridge)
 
 # Save the best model
 joblib.dump(best_ridge_model, 'models/best_ridge_model.pkl')
-
